@@ -530,10 +530,6 @@ export function generateInvoicePDF(invoice: InvoiceWithDetails, companySettings:
 </html>
   `;
 
- const blob = new Blob([html], { type: 'text/html' });
-const url = URL.createObjectURL(blob);
-
-// open print window safely
 const printWindow = window.open('', '_blank');
 
 if (printWindow) {
@@ -542,4 +538,5 @@ if (printWindow) {
   printWindow.document.close();
 } else {
   alert('Popup blocked. Please allow popups for this site.');
+}
 }
