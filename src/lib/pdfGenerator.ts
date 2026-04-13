@@ -530,11 +530,16 @@ export function generateInvoicePDF(invoice: InvoiceWithDetails, companySettings:
 </html>
   `;
 
-  const blob = new Blob([html], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const newWindow = window.open(url, '_blank');
+ const blob = new Blob([html], { type: 'text/html' });
+const url = URL.createObjectURL(blob);
 
-  if (!newWindow) {
-    alert('Please allow popups to download the PDF');
-  }
+// open print window safely
+const printWindow = window.open('', '_blank');
+
+if (printWindow) {
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+} else {
+  alert('Popup blocked. Please allow popups for this site.');
 }
